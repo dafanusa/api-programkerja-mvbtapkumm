@@ -1,4 +1,4 @@
-name: api_programkerja
+name: server
 description: API Program Kerja berbasis Dart Shelf
 version: 1.0.0
 
