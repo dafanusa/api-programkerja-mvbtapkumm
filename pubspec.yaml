@@ -3,7 +3,7 @@ description: API Program Kerja berbasis Dart Shelf
 version: 1.0.0
 
 environment:
-  sdk: '>=2.6.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   shelf: ^1.4.1

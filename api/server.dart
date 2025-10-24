@@ -1,12 +1,10 @@
-import 'dart:io';
 import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
-import 'package:shelf/shelf_io.dart';
-import '../program_data.dart'; // ubah jadi relatif ke folder root proyek kamu
+import '../program_data.dart';
 
-// Fungsi menentukan status dari rentang tanggal
+// Fungsi untuk menentukan status berdasarkan tanggal
 String getStatusFromDate(String dateRange) {
   final now = DateTime.now();
   try {
@@ -23,7 +21,7 @@ String getStatusFromDate(String dateRange) {
   }
 }
 
-// Handler endpoint /programs
+// Handler utama untuk /programs
 Response _programHandler(Request request) {
   final enriched = programList.map((p) {
     final status = getStatusFromDate(p['date']);
@@ -36,25 +34,17 @@ Response _programHandler(Request request) {
 
   return Response.ok(
     jsonEncode(enriched),
-    headers: {
-      'content-type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
+    headers: {'content-type': 'application/json', 'Access-Control-Allow-Origin': '*'},
   );
 }
 
-// Router utama
-final _router = Router()..get('/programs', _programHandler);
+// Router
+final _router = Router()
+  ..get('/', (Request req) => Response.ok('✅ API Program Kerja aktif! Coba /programs'))
+  ..get('/programs', _programHandler);
 
-// 🧩 Handler global untuk Vercel
+// Pipeline Vercel handler (tidak pakai main)
 final handler = Pipeline()
     .addMiddleware(corsHeaders())
     .addMiddleware(logRequests())
     .addHandler(_router);
-
-// Fungsi main untuk run lokal
-Future<void> main(List<String> args) async {
-  final port = int.parse(Platform.environment['PORT'] ?? '8080');
-  final server = await serve(handler, InternetAddress.anyIPv4, port);
-  print('✅ Server API berjalan di port ${server.port}');
-}
