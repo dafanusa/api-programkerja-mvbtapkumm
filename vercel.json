@@ -1,13 +1,9 @@
 {
-  "functions": {
-    "api/server.dart": {
-      "runtime": "vercel-dart@1.0.0"
-    }
-  },
+  "version": 2,
+  "builds": [
+    { "src": "api/server.dart", "use": "vercel-dart@1.0.0" }
+  ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "api/server.dart"
-    }
+    { "src": "/(.*)", "dest": "api/server.dart" }
   ]
 }
