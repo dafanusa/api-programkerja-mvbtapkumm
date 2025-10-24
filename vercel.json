@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/server.dart": {
+      "runtime": "vercel-dart@3.1.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/server.dart"
+    }
+  ]
+}
