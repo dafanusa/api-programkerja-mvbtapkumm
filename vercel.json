@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/server.dart": {
-      "runtime": "vercel-dart@1.1.0"
+      "runtime": "vercel-dart@1.0.0"
     }
   },
   "routes": [
